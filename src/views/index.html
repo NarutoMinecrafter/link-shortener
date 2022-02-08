@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Link shortener</title>
+</head>
+
+<body>
+  <input type="text" placeholder="Input link..." />
+  <button>send</button>
+  <a></a>
+
+  <script>
+    const input = document.querySelector('input')
+    const button = document.querySelector('button')
+    const a = document.querySelector('a')
+
+    function isUrl(url) {
+      try {
+        new URL(url);
+      } catch (_) {
+        return false;
+      }
+
+      return true;
+    }
+
+    button.addEventListener('click', async (event) => {
+      try {
+        if (!isUrl(input.value)) {
+          alert('Это не ссылка!!!')
+          return
+        }
+
+        let response = await fetch('/generate', {
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ url: input.value })
+        })
+        response = await response.json()
+
+        a.href = response.link
+        a.text = `Ваша ссылка: ${response.link}`
+
+        input.value = ''
+      } catch (error) {
+        console.log(error)
+        alert('Произошла какая-то ошибка')
+      }
+
+    })
+  </script>
+</body>
+
+</html>
