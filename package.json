@@ -1,0 +1,8 @@
+{
+  "name": "link-shortener",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "repository": "https://github.com/NarutoMinecrafter/link-shortener.git",
+  "author": "Naruto Minecrafter",
+  "license": "MIT"
+}
